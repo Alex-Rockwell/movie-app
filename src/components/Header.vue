@@ -18,7 +18,6 @@ defineProps({titleText: String})
     align-items: center;
     justify-content: center;
     padding: 50px 20px;
-    cursor: pointer;
   }
   .header__title {
     font-size: 40px;

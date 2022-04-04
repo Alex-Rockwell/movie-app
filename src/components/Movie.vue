@@ -1,8 +1,8 @@
 <template>
   <div class="movie">
-    <h2>{{movie.Title}}</h2>
+    <h2 class="movie__title">{{movie.Title}}</h2>
     <div>
-      <img width="200" :alt="altText" :src="movie.Poster" />
+      <img class="img" :alt="altText" :src="movie.Poster" />
     </div>
     <p>{{ movie.Year }}</p>
   </div>
@@ -16,9 +16,23 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .movie {
     padding: 5px 25px 10px 25px;
-    max-width: 250px;
+    max-width: 300px;
+    min-height: 400px;
+
+    @media screen and (max-width: 555px) {
+      max-width: 100vw;
+    }
+  }
+  .movie__title {
+    padding: 5px;
+    padding-left: 0;
+    font-size: 18px;
+  }
+
+  .img {
+    width: 100%;
   }
 </style>

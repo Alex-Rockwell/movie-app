@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
+  import { ref } from "@vue/reactivity";
 
   const searchInput = ref('')
 

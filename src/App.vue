@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Header :titleText="state.titleText"/>
+    <Header :titleText="'Movie App'"/>
     <main class="main">
-      <Search @search="handleSearch"/>
+      <Search @search="handleSearch" :currentSearch="state.search"/>
       <h1 class="search-text">search: {{state.search}}</h1>
       <div class="movies">
         <Movie v-for="movie in state.movies" :key="movie.imdbID" :movie="movie"/>
@@ -17,38 +17,20 @@
   import Header from './components/Header.vue';
   import Search from './components/Search.vue';
   import Movie from './components/Movie.vue';
+  import { useMovieApi } from './hooks/useMovieApi';
 
-  const API_KEY = 'b92a6bd8'
-
-  const state = reactive({
-    search: 'Once Upon',
-    loading: true,
-    movies: [],
-    errorMessage: null,
-    titleText: 'Title',
-  });
-
-
-  watchEffect(() => {
-    const MOVIE_API_URL = `https://www.omdbapi.com/?s=${state.search}&apikey=${API_KEY}`;
-
-    fetch(MOVIE_API_URL)
-      .then(response => response.json())
-      .then(jsonResponse => {
-        state.movies = jsonResponse.Search;
-        state.loading = false;
-        // console.log(state.movies)
-      });
-  });
-
+  const state = useMovieApi()
 
   function handleSearch(inp) {
+    state.loading = true
     state.search = inp
   }
 
 </script>
 
-<style>
+
+
+<style lang="scss">
   * {
     margin: 0;
     padding: 0;
@@ -63,9 +45,18 @@
     padding: 0 30px;
   }
   .movies {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    @media screen and (max-width: 960px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (max-width: 800px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (max-width: 555px) {
+      grid-template-columns: repeat(1, 100%);
+    }
   }
   .search-text {
     margin-left: 25px;
