@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="mode">
     <Header :titleText="'Movie App'"/>
     <main class="main">
       <Search @search="handleSearch" :currentSearch="state.search"/>
@@ -18,6 +18,9 @@
   import Search from './components/Search.vue';
   import Movie from './components/Movie.vue';
   import { useMovieApi } from './hooks/useMovieApi';
+  import { useTheme } from './stores/useStore';
+  import { storeToRefs } from 'pinia'
+  import { onMounted } from 'vue-demi';
 
   const state = useMovieApi()
 
@@ -25,6 +28,15 @@
     state.loading = true
     state.search = inp
   }
+
+  const store = useTheme()
+  const {mode} = storeToRefs(store)
+  const {keyPress} = store
+  const {toggle} = store
+
+  onMounted(() => {
+    window.addEventListener('keyup', keyPress)
+  })
 
 </script>
 
@@ -62,5 +74,9 @@
     margin-left: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+  .dark {
+    background-color: #30373f;
+    color: #f3f3f3;
   }
 </style>

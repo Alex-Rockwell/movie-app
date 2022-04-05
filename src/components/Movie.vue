@@ -30,6 +30,7 @@
     padding: 5px;
     padding-left: 0;
     font-size: 18px;
+    height: 55px;
   }
 
   .img {
