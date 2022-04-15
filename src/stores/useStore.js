@@ -1,18 +1,18 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
 export const useTheme = defineStore({
-  id: 'theme',
+  id: "theme",
   state: () => ({
-    mode: 'light'
+    mode: "light",
   }),
   actions: {
     toggle() {
-      this.mode = (this.mode === 'light') ? 'dark' : 'light'
+      this.mode = this.mode === "light" ? "dark" : "light";
     },
     keyPress(e) {
-      if (e.key === 't') {
-        this.toggle()
-       }
+      if (e.key === "t") {
+        this.toggle();
+      }
     },
-  }
-})
+  },
+});
